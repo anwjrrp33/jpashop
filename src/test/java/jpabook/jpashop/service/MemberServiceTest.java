@@ -1,5 +1,7 @@
 package jpabook.jpashop.service;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +19,10 @@ import jpabook.jpashop.repository.MemberRepository;
 @Transactional
 public class MemberServiceTest {
     
+    static {
+        System.setProperty("spring.config.location", "classpath:/test/resources/application.yml");
+    }
+
     @Autowired
     MemberService memberService;
 
@@ -36,12 +42,20 @@ public class MemberServiceTest {
         Assert.assertEquals(member, memberRepository.findOne(savedId)); 
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void 중복_회원_예외() throws Exception {
         // given
+        Member member1 = new Member();
+        member1.setName("kim");
+
+        Member member2 = new Member();
+        member2.setName("kim");
 
         // when
+        memberService.join(member1);
+        memberService.join(member2); // 예외가 발생해야 한다!
 
         // then
+        fail("예외가 발생해야 한다.");
     }
 }
