@@ -9,11 +9,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -48,6 +51,8 @@ public class OrderItem {
         getItem().addStock(count);
     }
     
+    // 조회로직
+    // 주문상품 전체 가격 조회
     public int getTotalPrice() {
         return getOrderPrice() * getCount();
     }

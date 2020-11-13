@@ -18,12 +18,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
     
     @Id @GeneratedValue
@@ -76,9 +79,7 @@ public class Order {
     }
 
     // 비즈니스 로직
-    /**
-     * 주문 취소
-     */
+    // 주문 취소
     public void cancel() {
         if(delivery.getStatus() == DeliveryStatus.COMP)  {
             throw new IllegalStateException("이미 배송완료된 상품은 최소가 불가능합니다.");
@@ -91,9 +92,7 @@ public class Order {
     }
 
     // 조회 로직
-    /**
-     * 전체 주문 가격 조회
-     */
+    // 전체 주문 가격 조회
     public int getTotalPrice() {
         int totalPrice = 0;
         for(OrderItem orderItem : orderItems) {
