@@ -2,7 +2,6 @@ package jpabook.jpashop.domain.service;
 
 import java.util.List;
 
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +19,13 @@ public class ItemService {
     @Transactional
     public void saveItem(Item item) {
         itemRepository.save(item);
+    }
+
+    @Transactional
+    public Item updateItem(Long itemId, String name, int price, int stockQuantity) {
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.change(name, price, stockQuantity);
+        return findItem;
     }
 
     public List<Item> findItems() {

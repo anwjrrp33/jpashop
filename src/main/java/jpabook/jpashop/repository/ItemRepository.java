@@ -19,6 +19,7 @@ public class ItemRepository {
         if(item.getId() == null) {
             em.persist(item);
         } else {
+            // 왠만하면 사용 X 단순한 경우에만 사용 (merge 사용시 세팅이 되지않은 파라미터 컬럼에 null값이 들어간다.)
             em.merge(item);
         }
     }
