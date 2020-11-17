@@ -2,6 +2,8 @@ package jpabook.jpashop.exception;
 
 public class NotEnoughStockException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     public NotEnoughStockException() {
         super();
     }
