@@ -16,6 +16,8 @@ public class MemberService {
     
     private final MemberRepository memberRepository;
 
+    // private final MemberRepositorySpringJPA memberRepositorySpringJPA;
+
     // 회원 가입
     @Transactional
     public Long join(Member member) {
@@ -27,6 +29,8 @@ public class MemberService {
     private void validateDuplicateMember(Member member) {
         // EXCEPTION
         List<Member> findMembers = memberRepository.findByName(member.getName());
+        // Spring JPA
+        // List<Member> findMembers = memberRepositorySpringJPA.findByName(member.getName());
         if(!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
